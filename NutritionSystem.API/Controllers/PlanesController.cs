@@ -1,0 +1,48 @@
+﻿namespace NutritionSystem.API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class PlanesController : ControllerBase
+    {
+        private readonly IMediator _mediator;
+        private readonly ILogger<PlanesController> _logger;
+
+        public PlanesController(IMediator mediator, ILogger<PlanesController> logger)
+        {
+            _mediator = mediator;
+            _logger = logger;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreatePlan([FromBody] CreatePlanCommand command)
+        {
+            _logger.LogInformation("Received CreatePlanCommand for ConsultaId: {ConsultaId}", command.ConsultaId);
+            try
+            {
+                var planId = await _mediator.Send(command);
+                _logger.LogInformation("Plan created successfully with ID: {PlanId}", planId);
+                return CreatedAtAction(nameof(GetPlanById), new { id = planId }, new { Id = planId });
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogWarning(ex, "Bad request for CreatePlan: {Message}", ex.Message);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An unexpected error occurred while processing CreatePlanCommand.");
+                return StatusCode(500, "Ocurrió un error interno al crear el plan.");
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPlanById(Guid id)
+        {
+            // Asume que tienes un Query y DTO para Plan
+            // var plan = await _mediator.Send(new GetPlanByIdQuery { Id = id });
+            // if (plan == null) return NotFound();
+            // return Ok(plan);
+            return StatusCode(501, "Not Implemented: Implement GetPlanByIdQuery and its handler.");
+        }
+    }
+}
