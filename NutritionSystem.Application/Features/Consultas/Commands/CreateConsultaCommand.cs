@@ -7,7 +7,7 @@ namespace NutritionSystem.Application.Features.Consulta.Commands
         public Guid PacienteId { get; set; }
         public Guid NutricionistaId { get; set; }
         public DateOnly FechaConsulta { get; set; }
-        public string Motivo { get; set; }
+        //public string Motivo { get; set; }
         public string Notas { get; set; }
     }
 

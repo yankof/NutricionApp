@@ -4,7 +4,7 @@ using System;
 
 namespace NutritionSystem.Domain.Events.Paciente
 {
-    public class PacienteCreatedEvent : DomainEventBase
+    public class PacienteCreatedEvent : DomainEvent
     {
         public Guid PacienteId { get; }
         //public string Ocupacion { get; }

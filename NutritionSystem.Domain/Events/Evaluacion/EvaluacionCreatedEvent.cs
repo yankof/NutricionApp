@@ -1,6 +1,6 @@
 ﻿namespace NutritionSystem.Domain.Events.Evaluacion
 {
-    public class EvaluacionCreatedEvent : DomainEventBase
+    public class EvaluacionCreatedEvent : DomainEvent
     {
         public Guid EvaluacionId { get; }
         public Guid ConsultaId { get; }

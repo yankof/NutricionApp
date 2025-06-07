@@ -1,7 +1,7 @@
 ﻿namespace NutritionSystem.Domain.Events.Nutricionista
 {
     // Evento que se dispara cuando un nuevo nutricionista es creado
-    public class NutricionistaCreatedEvent : DomainEventBase
+    public class NutricionistaCreatedEvent : DomainEvent
     {
         public Guid NutricionistaId { get; }
         public string Titulo { get; }

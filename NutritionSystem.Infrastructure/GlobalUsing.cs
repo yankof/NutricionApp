@@ -12,3 +12,15 @@ global using NutritionSystem.Domain.Entities;
 global using NutritionSystem.Infrastructure.Persistence;
 global using System.Linq.Expressions;
 global using System.Reflection;
+
+global using Joseco.Communication.External.Contracts.Services;
+global using NutritionSystem.Integration.EvaluacionNutricional;
+global using Joseco.Communication.External.RabbitMQ;
+global using Joseco.Communication.External.RabbitMQ.Services;
+global using Microsoft.Extensions.DependencyInjection;
+global using NutritionSystem.Infrastructure.RabbitMQ.Consumers;
+
+global using NutritionSystem.Application.Abstraction;
+global using NutritionSystem.Infrastructure.Observability;
+
+

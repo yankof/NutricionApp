@@ -5,10 +5,10 @@
         public TId Id { get; protected set; }
 
         // Lista de eventos de dominio generados por esta entidad
-        private List<DomainEventBase> _domainEvents = new List<DomainEventBase>();
-        public IReadOnlyCollection<DomainEventBase> DomainEvents => _domainEvents.AsReadOnly();
+        private List<DomainEvent> _domainEvents = new List<DomainEvent>();
+        public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-        protected void AddDomainEvent(DomainEventBase domainEvent)
+        protected void AddDomainEvent(DomainEvent domainEvent)
         {
             _domainEvents.Add(domainEvent);
         }

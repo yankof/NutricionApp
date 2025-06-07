@@ -1,4 +1,7 @@
-﻿namespace NutritionSystem.Infrastructure.Persistence
+﻿using Joseco.Outbox.Contracts.Model;
+using Joseco.Outbox.EFCore.Persistence;
+
+namespace NutritionSystem.Infrastructure.Persistence
 {
     public class ApplicationDbContext : DbContext
     {
@@ -19,11 +22,13 @@
         public DbSet<HistorialPaciente> HistorialPacientes { get; set; }
         public DbSet<Reserva> Reservas { get; set; }
 
+        public DbSet<OutboxMessage<DomainEvent>> OutboxMessages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Ignore<DomainEventBase>(); // Esta línea es crucial
-
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            modelBuilder.AddOutboxModel<DomainEvent>();
 
             // Mapeo de enums (ejemplo de la solución anterior)
             modelBuilder.Entity<Nutricionista>().Property(n => n.Activo).HasConversion<string>();
@@ -48,6 +53,8 @@
             modelBuilder.Entity<Reserva>().Property(r => r.FechaModificacion).HasColumnType("date");
 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Ignore<DomainEvent>(); // Esta línea es crucial
         }
 
         // Método para publicar eventos de dominio después de guardar

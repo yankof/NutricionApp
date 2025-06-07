@@ -13,3 +13,5 @@ global using NutritionSystem.Domain.Events.Plan;
 global using NutritionSystem.Domain.Enums;
 global using NutritionSystem.Domain.Events.Consulta;
 global using NutritionSystem.Domain.Events.Paciente;
+global using Microsoft.Extensions.DependencyInjection;
+global using System.Reflection;

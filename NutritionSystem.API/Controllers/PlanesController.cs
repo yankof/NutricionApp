@@ -1,4 +1,6 @@
-﻿namespace NutritionSystem.API.Controllers
+﻿using NutritionSystem.Domain.Entities;
+
+namespace NutritionSystem.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -39,10 +41,15 @@
         public async Task<IActionResult> GetPlanById(Guid id)
         {
             // Asume que tienes un Query y DTO para Plan
-            // var plan = await _mediator.Send(new GetPlanByIdQuery { Id = id });
-            // if (plan == null) return NotFound();
-            // return Ok(plan);
-            return StatusCode(501, "Not Implemented: Implement GetPlanByIdQuery and its handler.");
+            _logger.LogInformation("Attempting to retrieve Consulta with ID: {Id}", id);
+            var plan = await _mediator.Send(new GetPlanByIdQuery { Id = id });
+            if (plan == null)
+            {
+                _logger.LogWarning("Consulta with ID {Id} not found.", id);
+                return NotFound();
+            }
+            _logger.LogInformation("Consulta found with ID: {Id}", id);
+            return Ok(plan);
         }
     }
 }

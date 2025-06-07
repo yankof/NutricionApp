@@ -1,6 +1,9 @@
-﻿namespace NutritionSystem.Infrastructure.Repositories
+﻿using Joseco.Outbox.Contracts.Model;
+using Joseco.Outbox.EFCore.Persistence;
+
+namespace NutritionSystem.Infrastructure.Repositories
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IOutboxDatabase<DomainEvent>
     {
         private readonly ApplicationDbContext _dbContext; // Todavía se necesita para CompleteAsync()
         private readonly ILogger<UnitOfWork> _logger; // Logger para la propia UnitOfWork
@@ -57,6 +60,16 @@
         {
             _logger.LogInformation("Disposing ApplicationDbContext.");
             _dbContext.Dispose();
+        }
+
+        public DbSet<OutboxMessage<DomainEvent>> GetOutboxMessages()
+        {
+            return _dbContext.OutboxMessages;
+        }
+
+        public Task CommitAsync(CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
         }
     }
 }

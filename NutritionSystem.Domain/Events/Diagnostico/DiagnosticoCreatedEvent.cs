@@ -1,6 +1,6 @@
 ﻿namespace NutritionSystem.Domain.Events.Diagnostico
 {
-    public class DiagnosticoCreatedEvent : DomainEventBase
+    public class DiagnosticoCreatedEvent : DomainEvent
     {
         public Guid DiagnosticoId { get; }
         public Guid ConsultaId { get; }
