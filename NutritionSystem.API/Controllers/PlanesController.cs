@@ -21,9 +21,10 @@ namespace NutritionSystem.API.Controllers
             _logger.LogInformation("Received CreatePlanCommand for ConsultaId: {ConsultaId}", command.ConsultaId);
             try
             {
-                var planId = await _mediator.Send(command);
-                _logger.LogInformation("Plan created successfully with ID: {PlanId}", planId);
-                return CreatedAtAction(nameof(GetPlanById), new { id = planId }, new { Id = planId });
+                var planCreado = await _mediator.Send(command);
+                return Ok(planCreado);
+                _logger.LogInformation("Plan created successfully with ID: {PlanId}", planCreado.Id);
+                //return CreatedAtAction(nameof(GetPlanById), new { id = planId }, new { Id = planId });
             }
             catch (ArgumentException ex)
             {
@@ -40,9 +41,10 @@ namespace NutritionSystem.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPlanById(Guid id)
         {
-            // Asume que tienes un Query y DTO para Plan
             _logger.LogInformation("Attempting to retrieve Consulta with ID: {Id}", id);
-            var plan = await _mediator.Send(new GetPlanByIdQuery { Id = id });
+            var query = new GetPlanByIdQuery { Id = id };
+            var plan = await _mediator.Send(query);
+            
             if (plan == null)
             {
                 _logger.LogWarning("Consulta with ID {Id} not found.", id);

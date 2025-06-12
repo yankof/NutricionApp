@@ -7,7 +7,7 @@
 
         public string Descripcion { get; private set; }
         public TipoDiagnostico TipoDiagnostico { get; private set; } // Ejemplo: Nutricional, Médico, etc.
-        public DateOnly FechaCreacion { get; private set; }
+        //public DateOnly FechaCreacion { get; private set; }
         public TipoStatus TipoStatus { get; private set; }
 
         private Diagnostico() { }
@@ -18,7 +18,7 @@
             ConsultaId = consultaId;
             Descripcion = descripcion;
             TipoDiagnostico = tipoDiagnostico;
-            FechaCreacion = DateOnly.FromDateTime(DateTime.UtcNow);
+            //FechaCreacion = DateOnly.FromDateTime(DateTime.UtcNow);
             TipoStatus = tipoStatus;
 
             // REGISTRAR EL EVENTO DE DOMINIO:

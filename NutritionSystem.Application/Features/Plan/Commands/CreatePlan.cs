@@ -1,6 +1,7 @@
-﻿namespace NutritionSystem.Application.Features.Plan.Commands
+﻿    namespace NutritionSystem.Application.Features.Plan.Commands
 {
-    public class CreatePlanCommand : IRequest<Guid>
+    //public class CreatePlanCommand : IRequest<Guid>
+    public class CreatePlanCommand : IRequest<PlanCommandDto>
     {
         public Guid ConsultaId { get; set; }
         public string Descripcion { get; set; }
@@ -10,7 +11,7 @@
 
     }
 
-    public class CreatePlanCommandHandler : IRequestHandler<CreatePlanCommand, Guid>
+    public class CreatePlanCommandHandler : IRequestHandler<CreatePlanCommand, PlanCommandDto>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -19,7 +20,7 @@
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Guid> Handle(CreatePlanCommand request, CancellationToken cancellationToken)
+        public async Task<PlanCommandDto> Handle(CreatePlanCommand request, CancellationToken cancellationToken)
         {
             // Opcional: Validar que la ConsultaId exista
             var consulta = await _unitOfWork.Consultas.GetByIdAsync(request.ConsultaId);
@@ -41,7 +42,26 @@
             await _unitOfWork.Planes.AddAsync(plan);
             await _unitOfWork.CompleteAsync(); // Esto disparará el evento de dominio
 
-            return plan.Id;
+            return new PlanCommandDto
+            { 
+                Id = plan.Id,
+                DiasTratamiento = plan.DiasTratamiento,
+                Descripcion = plan.Descripcion,
+                TipoPlan = plan.TipoPlan,
+            };
         }
+    }
+
+    public class PlanCommandDto
+    {
+        public Guid Id { get; set; }
+        public TipoPlan TipoPlan { get; set; }
+        public string Descripcion { get; set; }
+        public int DiasTratamiento { get; set; }
+        //public Guid ConsultaId { get; set; } // FK a Consulta
+        //public string Consulta { get; set; }
+        //public DateOnly FechaCreacion { get; set; }
+        //public TipoStatus TipoStatus { get; set; }
+
     }
 }

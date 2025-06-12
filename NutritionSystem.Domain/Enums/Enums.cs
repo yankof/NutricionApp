@@ -8,38 +8,38 @@
 
     public enum TipoEvaluacion
     {
-        Inicial,
-        Seguimiento,
-        Final
+        Inicial = 0,
+        Seguimiento = 1,
+        Final = 2,
     }
 
     public enum TipoStatus
     {
-        Inicial,
-        Seguimiento,
-        Final
+        Inicial = 0,
+        Seguimiento = 1,
+        Final = 2,
     }
 
     public enum TipoDiagnostico
     {
-        Nutricional,
-        Medico,
-        General
+        Nutricional = 0,
+        Medico = 1,
+        General = 2
     }
 
     public enum TipoPlan
     {
-        Dieta,
-        Adelgazamiento,
-        MasaMuscular,
-        Ejercicio,
-        Mixto
+        Dieta = 0,
+        Adelgazamiento = 1,
+        MasaMuscular = 2,
+        Ejercicio = 3,
+        Mixto = 4,
     }
 
     public enum EstatusConsulta
     {
-        Activa,
-        Finalizada,
-        Cancelada
+        Activa = 0,
+        Finalizada = 1,
+        Cancelada = 2,
     }
 }
